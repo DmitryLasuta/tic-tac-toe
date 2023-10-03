@@ -1,7 +1,12 @@
 import './App.css'
+import Board from './components/board/Board'
 
 function App() {
-  return <>This is the tic-tac-toe app</>
+  return (
+    <>
+      <Board />
+    </>
+  )
 }
 
 export default App

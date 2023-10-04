@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import type { FieldValue } from 'types/fieldValue'
 import calculateWinner from 'services/calculateWinner'
 import styles from './Board.module.css'
@@ -32,18 +31,20 @@ function Square({
  */
 export default function Board({
   fieldset,
+  xIsNext,
   onPlay,
 }: {
   fieldset: FieldValue[]
+  xIsNext: boolean
   onPlay: (fieldsetValues: FieldValue[]) => void
 }): JSX.Element {
-  const [xIsNext, setXIsNext] = useState(true)
-
   const winner = calculateWinner(fieldset)
   let status: string
 
   if (winner !== null) {
     status = `Winner: ${winner}`
+  } else if (fieldset.every(value => value !== null)) {
+    status = "It's a tie!"
   } else {
     status = `Next player: ${xIsNext ? 'X' : 'O'}`
   }
@@ -55,13 +56,12 @@ export default function Board({
    * @return {void} This function does not return a value.
    */
   const handleClick = (index: number): void => {
-    if ((fieldset[index] !== null && !xIsNext) || calculateWinner(fieldset)) return
+    if ((fieldset[index] !== null && !xIsNext) || winner) return
 
     const fieldsetValues = [...fieldset]
     xIsNext ? (fieldsetValues[index] = 'X') : (fieldsetValues[index] = 'O')
 
     onPlay(fieldsetValues)
-    setXIsNext(!xIsNext)
   }
 
   return (

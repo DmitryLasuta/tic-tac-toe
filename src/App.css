@@ -7,19 +7,20 @@ body {
 
 .game-control {
   margin-top: 20px;
-  & button {
-    border: 2px solid black;
-    text-align: center;
-    background-color: #f0f0f0;
-    width: 100%;
-    padding: 5px 0;
-    cursor: pointer;
+}
 
-    &:hover {
-      background-color: #e0e0e0;
-    }
-    &:active {
-      background-color: #c0c0c0;
-    }
+button {
+  border: 2px solid black;
+  text-align: center;
+  background-color: #f0f0f0;
+  width: 100%;
+  padding: 5px 0;
+  cursor: pointer;
+
+  &:hover {
+    background-color: #e0e0e0;
+  }
+  &:active {
+    background-color: #c0c0c0;
   }
 }

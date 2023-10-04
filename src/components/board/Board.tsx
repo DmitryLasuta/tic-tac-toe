@@ -30,14 +30,18 @@ function Square({
  *
  * @return {JSX.Element} The rendered game board.
  */
-export default function Board(): JSX.Element {
+export default function Board({
+  fieldset,
+  onPlay,
+}: {
+  fieldset: FieldValue[]
+  onPlay: (fieldsetValues: FieldValue[]) => void
+}): JSX.Element {
   const [xIsNext, setXIsNext] = useState(true)
-  const [fieldsetValues, setFieldsetValues] = useState<FieldValue[]>(
-    Array(9).fill(null)
-  )
 
-  const winner = calculateWinner(fieldsetValues)
-  let status: string = ''
+  const winner = calculateWinner(fieldset)
+  let status: string
+
   if (winner !== null) {
     status = `Winner: ${winner}`
   } else {
@@ -51,16 +55,12 @@ export default function Board(): JSX.Element {
    * @return {void} This function does not return a value.
    */
   const handleClick = (index: number): void => {
-    if (
-      (fieldsetValues[index] !== null && !xIsNext) ||
-      calculateWinner(fieldsetValues)
-    )
-      return
+    if ((fieldset[index] !== null && !xIsNext) || calculateWinner(fieldset)) return
 
-    const newFieldsetValues = [...fieldsetValues]
-    xIsNext ? (newFieldsetValues[index] = 'X') : (newFieldsetValues[index] = 'O')
+    const fieldsetValues = [...fieldset]
+    xIsNext ? (fieldsetValues[index] = 'X') : (fieldsetValues[index] = 'O')
 
-    setFieldsetValues(newFieldsetValues)
+    onPlay(fieldsetValues)
     setXIsNext(!xIsNext)
   }
 
@@ -68,7 +68,7 @@ export default function Board(): JSX.Element {
     <>
       <h2>{status}</h2>
       <div className={styles.board}>
-        {fieldsetValues.map((fieldValue, index) => (
+        {fieldset.map((fieldValue, index) => (
           <Square
             key={index}
             value={fieldValue}

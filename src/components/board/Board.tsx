@@ -56,7 +56,7 @@ export default function Board({
    * @return {void} This function does not return a value.
    */
   const handleClick = (index: number): void => {
-    if ((fieldset[index] !== null && !xIsNext) || winner) return
+    if (fieldset[index] || winner) return
 
     const fieldsetValues = [...fieldset]
     xIsNext ? (fieldsetValues[index] = 'X') : (fieldsetValues[index] = 'O')
@@ -66,7 +66,7 @@ export default function Board({
 
   return (
     <>
-      <h2>{status}</h2>
+      <h2 className={styles.title}>{status}</h2>
       <div className={styles.board}>
         {fieldset.map((fieldValue, index) => (
           <Square

@@ -11,8 +11,9 @@ function App() {
   const currentFieldset = history[currentMove]
 
   const handlePlay = (fieldsetValues: FieldValue[]) => {
-    setHistory([...history, fieldsetValues])
-    setCurrentMove(history.length)
+    const nextHistory = [...history.slice(0, currentMove + 1), fieldsetValues]
+    setHistory(nextHistory)
+    setCurrentMove(nextHistory.length - 1)
   }
 
   const handleRestart = () => {
@@ -41,13 +42,16 @@ function App() {
     <div className="game">
       <div className="game-board">
         <Board onPlay={handlePlay} xIsNext={xIsNext} fieldset={currentFieldset} />
+        <div className="game-control">
+          <button onClick={handleRestart} type="button">
+            Restart Game
+          </button>
+        </div>
       </div>
-      <div className="game-control">
-        <button onClick={handleRestart} type="button">
-          Restart Game
-        </button>
+      <div className="game-info">
+        <h3>Game history</h3>
+        <ol>{move}</ol>
       </div>
-      <ol className="game-info">{move}</ol>
     </div>
   )
 }

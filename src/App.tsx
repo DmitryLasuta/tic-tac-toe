@@ -2,6 +2,8 @@ import { useState } from 'react'
 import type { FieldValue } from 'types/fieldValue'
 import Board from './components/board/Board'
 import './App.css'
+import Button from '@mui/material/Button'
+import { Box, ButtonGroup } from '@mui/material'
 
 function App() {
   const [history, setHistory] = useState<Array<FieldValue[]>>([Array(9).fill(null)])
@@ -29,30 +31,31 @@ function App() {
     if (move > 0) {
       const desc = `Go to move #${move}`
       return (
-        <li key={move}>
-          <button onClick={() => jumpTo(move)} type="button">
-            {desc}
-          </button>
-        </li>
+        <Button onClick={() => jumpTo(move)} type="button">
+          {desc}
+        </Button>
       )
     }
   })
 
   return (
-    <div className="game">
-      <div className="game-board">
+    <Box component={'main'} sx={{ display: 'flex', gap: '20px' }} className="game">
+      <Box>
         <Board onPlay={handlePlay} xIsNext={xIsNext} fieldset={currentFieldset} />
-        <div className="game-control">
-          <button onClick={handleRestart} type="button">
-            Restart Game
-          </button>
-        </div>
-      </div>
+        <Button
+          variant="contained"
+          sx={{ width: '100%', mt: '20px' }}
+          onClick={handleRestart}
+          type="button"
+        >
+          Restart Game
+        </Button>
+      </Box>
       <div className="game-info">
         <h3>Game history</h3>
-        <ol>{move}</ol>
+        <ButtonGroup orientation="vertical">{move}</ButtonGroup>
       </div>
-    </div>
+    </Box>
   )
 }
 

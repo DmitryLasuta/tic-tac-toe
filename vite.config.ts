@@ -12,9 +12,4 @@ export default defineConfig({
       types: '/src/types',
     },
   },
-
-  build: {
-    outDir: '../dist',
-    emptyOutDir: true,
-  },
 })

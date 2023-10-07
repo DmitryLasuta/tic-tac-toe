@@ -1,6 +1,6 @@
 import type { FieldValue } from 'types/fieldValue'
 import calculateWinner from 'services/calculateWinner'
-import styles from './Board.module.css'
+import { Box, Button, Typography } from '@mui/material'
 
 /**
  * Renders a square button component.
@@ -18,9 +18,14 @@ function Square({
   handleClick: () => void
 }): JSX.Element {
   return (
-    <button className={styles.square} onClick={handleClick} type="button">
+    <Button
+      variant="outlined"
+      sx={{ height: 64, fontSize: '2rem' }}
+      onClick={handleClick}
+      type="button"
+    >
       {value}
-    </button>
+    </Button>
   )
 }
 
@@ -66,8 +71,18 @@ export default function Board({
 
   return (
     <>
-      <h2 className={styles.title}>{status}</h2>
-      <div className={styles.board}>
+      <Typography variant="h4" textTransform={'uppercase'}>
+        {status}
+      </Typography>
+      <Box
+        sx={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(3, 1fr)',
+          gridTemplateRows: 'repeat(3, 1fr)',
+          width: 'fit-content',
+          margin: '20px auto',
+        }}
+      >
         {fieldset.map((fieldValue, index) => (
           <Square
             key={index}
@@ -77,7 +92,7 @@ export default function Board({
             }}
           />
         ))}
-      </div>
+      </Box>
     </>
   )
 }

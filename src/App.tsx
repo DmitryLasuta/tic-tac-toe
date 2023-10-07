@@ -2,6 +2,7 @@ import { useState } from 'react'
 import type { FieldValue } from 'types/fieldValue'
 import Board from './components/board/Board'
 import './App.css'
+import { Box, ButtonGroup, Typography, Button } from '@mui/material'
 
 function App() {
   const [history, setHistory] = useState<Array<FieldValue[]>>([Array(9).fill(null)])
@@ -29,30 +30,45 @@ function App() {
     if (move > 0) {
       const desc = `Go to move #${move}`
       return (
-        <li key={move}>
-          <button onClick={() => jumpTo(move)} type="button">
-            {desc}
-          </button>
-        </li>
+        <Button onClick={() => jumpTo(move)} type="button">
+          {desc}
+        </Button>
       )
     }
   })
 
   return (
-    <div className="game">
-      <div className="game-board">
+    <Box
+      component={'main'}
+      sx={{
+        display: 'flex',
+        gap: '50px',
+        justifyContent: 'baseline',
+        padding: '0 20px',
+        minHeight: '50vh',
+      }}
+      className="game"
+    >
+      <Box sx={{ minWidth: '350px', textAlign: 'center' }}>
         <Board onPlay={handlePlay} xIsNext={xIsNext} fieldset={currentFieldset} />
-        <div className="game-control">
-          <button onClick={handleRestart} type="button">
-            Restart Game
-          </button>
-        </div>
-      </div>
-      <div className="game-info">
-        <h3>Game history</h3>
-        <ol>{move}</ol>
-      </div>
-    </div>
+        <Button
+          variant="contained"
+          sx={{ width: '100%', mt: '20px' }}
+          onClick={handleRestart}
+          type="button"
+        >
+          Restart Game
+        </Button>
+      </Box>
+      <Box component={'section'}>
+        <Typography sx={{ marginBottom: '20px' }} variant="h4">
+          Game history
+        </Typography>
+        <ButtonGroup orientation="vertical" aria-label="game history buttons">
+          {move}
+        </ButtonGroup>
+      </Box>
+    </Box>
   )
 }
 

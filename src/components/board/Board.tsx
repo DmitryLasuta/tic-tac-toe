@@ -71,7 +71,9 @@ export default function Board({
 
   return (
     <>
-      <Typography variant="h3">{status}</Typography>
+      <Typography variant="h4" textTransform={'uppercase'}>
+        {status}
+      </Typography>
       <Box
         sx={{
           display: 'grid',

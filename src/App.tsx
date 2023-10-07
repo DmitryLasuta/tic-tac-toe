@@ -17,11 +17,21 @@ function App() {
     setCurrentMove(nextHistory.length - 1)
   }
 
-  const handleRestart = () => {
+  /**
+   * Restarts the game by resetting the history and current move.
+   *
+   * @return {void}
+   */
+  const handleRestart = (): void => {
     setHistory([Array(9).fill(null)])
     setCurrentMove(0)
   }
 
+  /**
+   * Jumps to a specific step.
+   *
+   * @param {number} step - The step to jump to.
+   */
   const jumpTo = (step: number) => {
     setCurrentMove(step)
   }

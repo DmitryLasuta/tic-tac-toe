@@ -3,12 +3,12 @@ import calculateWinner from 'services/calculateWinner'
 import { Box, Button, Typography } from '@mui/material'
 
 /**
- * Renders a square button component.
+ * Renders a square component.
  *
- * @param {object} props - The properties of the square button.
- * @param {FieldValue} props.value - The value displayed on the button.
- * @param {() => void} props.handleClick - The function called when the button is clicked.
- * @returns {JSX.Element} The square button component.
+ * @param {object} props - The properties of the square component.
+ * @param {FieldValue} props.value - The value of the square.
+ * @param {function} props.handleClick - The click event handler for the square.
+ * @returns {JSX.Element} The rendered square component.
  */
 function Square({
   value,
@@ -30,9 +30,13 @@ function Square({
 }
 
 /**
- * Renders a game board with squares that can be clicked to make a move.
+ * Renders the game board component.
  *
- * @return {JSX.Element} The rendered game board.
+ * @param {Object} props - The props object.
+ * @param {array} props.fieldset - The fieldset array.
+ * @param {boolean} props.xIsNext - Indicates if it's X's turn.
+ * @param {function} props.onPlay - The callback function when a field is played.
+ * @return {JSX.Element} The rendered game board component.
  */
 export default function Board({
   fieldset,
@@ -55,10 +59,10 @@ export default function Board({
   }
 
   /**
-   * Handles the click event for a specific index.
+   * Handles the click event for a specific index in the fieldset.
    *
-   * @param {number} index - The index of the fieldset value.
-   * @return {void} This function does not return a value.
+   * @param {number} index - The index of the fieldset to handle the click for.
+   * @return {void} This function does not return anything.
    */
   const handleClick = (index: number): void => {
     if (fieldset[index] || winner) return
